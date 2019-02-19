@@ -35,6 +35,11 @@ public abstract class CustomElement {
 	/** a random number generator for changing to a random color */
 	protected Random myRand = new Random();
 
+	protected int r_val = 0;
+
+	protected int g_val = 0;
+
+	protected int b_val = 0;
 	/**
 	 * This gives the element a name for identification. This need not be unique
 	 * but it's helpful
@@ -44,18 +49,20 @@ public abstract class CustomElement {
 	/** the ctor requires that you give the object a name and a color */
 	public CustomElement(String name, int color) {
 		// init instance variables
-		setColor(color);
+		setColor(Color.argb(0xFF, Color.red(color), Color.green(color), Color.blue(color)));
 		this.myName = name;
+
+		this.myPaint.setStrokeWidth(2.0f);
 
 		// black is an obvious choice for outlines
 		this.outlinePaint.setColor(Color.BLACK);
 		this.outlinePaint.setStyle(Paint.Style.STROKE);
-
+		this.outlinePaint.setStrokeWidth(2.0f);
 		// yellow is a good choice for highlighting but, in case the shape is
 		// already yellow add a shadow
 		this.highlightPaint.setColor(Color.YELLOW);
 		this.highlightPaint.setStyle(Paint.Style.STROKE);
-		this.highlightPaint.setStrokeWidth(5); // nice wide, visible line
+		this.highlightPaint.setStrokeWidth(10); // nice wide, visible line
 		this.highlightPaint.setShadowLayer(5, 1, 1, Color.MAGENTA);
 
 	}
@@ -74,6 +81,9 @@ public abstract class CustomElement {
 			return;
 
 		// make the change
+		this.r_val= Color.red(color);
+		this.g_val= Color.green(color);
+		this.b_val= Color.blue(color);
 		this.myPaint.setColor(color);
 	}
 
@@ -98,13 +108,6 @@ public abstract class CustomElement {
 	/** an element must be able to paint itself */
 	public abstract void drawMe(Canvas canvas);
 
-	/**
-	 * an element must be able to tell whether a given x,y coordinate falls
-	 * within the bounds of its shape. This is used for tap purposes so a tap
-	 * that is close to being inside should still count. Use the TAP_MARGIN
-	 * constant as a guide for fudge factor. When implementing this method, you
-	 * may find the {@link android.graphics.Rect.contains} method handy.
-	 */
 	public abstract boolean containsPoint(int x, int y);
 
 	/** an element must be able to determine its approximate area */

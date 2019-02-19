@@ -1,15 +1,20 @@
 package com.example.hw2;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Controller implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class Controller implements  SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
 
-    SurfaceView sfc_view;
+
+    private MyCanvas sfc_view;
 
     private SeekBar r_seek;
     private SeekBar g_seek;
@@ -44,7 +49,7 @@ public class Controller implements View.OnClickListener, SeekBar.OnSeekBarChange
         g_text = gt;
         b_text = bt;
 
-        sfc_view = sv;
+        sfc_view =  (MyCanvas) sv;
 
         s_name = sn;
 
@@ -56,15 +61,7 @@ public class Controller implements View.OnClickListener, SeekBar.OnSeekBarChange
 
     }
 
-    //takes on tap x y coordinates, not used
-    @Override
-    public void onClick(View v)
-    {
-        int x_tap = (int) v.getX();
-        int y_tap = (int) v.getY();
-
-
-    }
+    //takes o
 
     //Change number on corresponding textview to progress of seekbar
     //Used for changing color of shapes later
@@ -72,20 +69,25 @@ public class Controller implements View.OnClickListener, SeekBar.OnSeekBarChange
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
     {
         //Check for r_seek id and update text
+
         if(seekBar == r_seek)
         {
-            r_text.setText("" + progress);
+            r_text.setText("Red: " + progress);
+            if(sfc_view.selected != null) sfc_view.selected.setColor(Color.argb(0xFF,progress,sfc_view.selected.g_val,sfc_view.selected.b_val));
         }
         //Check for g_seek id and update text
         if(seekBar == g_seek)
         {
-            g_text.setText("" + progress);
+            g_text.setText("Green: " + progress);
+            if(sfc_view.selected != null) sfc_view.selected.setColor(Color.argb(0xFF,sfc_view.selected.r_val,progress,sfc_view.selected.b_val));
         }
         //Check for b_seek id and update text
         if(seekBar == b_seek)
         {
-            b_text.setText("" + progress);
+            b_text.setText("Blue: " + progress);
+            if(sfc_view.selected != null) sfc_view.selected.setColor(Color.argb(0xFF,sfc_view.selected.r_val,sfc_view.selected.g_val,progress));
         }
+        sfc_view.invalidate();
     }
 
     @Override
@@ -100,4 +102,51 @@ public class Controller implements View.OnClickListener, SeekBar.OnSeekBarChange
 
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        int x_coord = (int) event.getX();
+        int y_coord = (int) event.getY();
+        if(v != sfc_view) return false;
+        sfc_view.selected = null;
+        s_name.setText("No Selected");
+        if(sfc_view.REC_1.containsPoint(x_coord,y_coord))
+        {
+            sfc_view.selected = sfc_view.REC_1;
+            s_name.setText(sfc_view.REC_1.getName());
+            return true;
+        }
+        else if(sfc_view.REC_2.containsPoint(x_coord,y_coord))
+        {
+            sfc_view.selected = sfc_view.REC_2;
+            s_name.setText(sfc_view.REC_2.getName());
+            return true;
+        }
+        else if(sfc_view.REC_3.containsPoint(x_coord,y_coord))
+        {
+            sfc_view.selected = sfc_view.REC_3;
+            s_name.setText(sfc_view.REC_3.getName());
+            return true;
+        }
+        else if(sfc_view.CIRCLE_1.containsPoint(x_coord,y_coord))
+        {
+            sfc_view.selected = sfc_view.CIRCLE_1;
+            s_name.setText(sfc_view.CIRCLE_1.getName());
+            return true;
+        }
+        else if(sfc_view.CIRCLE_2.containsPoint(x_coord,y_coord))
+        {
+            sfc_view.selected = sfc_view.CIRCLE_2;
+            s_name.setText(sfc_view.CIRCLE_2.getName());
+            return true;
+        }
+        else if(sfc_view.CIRCLE_3.containsPoint(x_coord,y_coord))
+        {
+            sfc_view.selected = sfc_view.CIRCLE_3;
+            s_name.setText(sfc_view.CIRCLE_3.getName());
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.hw2;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 
 /**
@@ -26,6 +27,9 @@ public class CustomRect extends CustomElement {
 		super(name, color);
 		
 		this.myRect = new Rect(left, top, right, bottom);
+		this.r_val= Color.red(color);
+		this.g_val= Color.green(color);
+		this.b_val= Color.blue(color);
 	}
 	
 	

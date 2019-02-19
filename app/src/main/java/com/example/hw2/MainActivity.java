@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         //Create controller var with all views
         Controller controller = new Controller(rs,gs,bs,rt,gt,bt,sn,sf);
 
+        sf.setOnTouchListener(controller);
 
-        MyCanvas myCanv = new MyCanvas(this);
 
 
 
