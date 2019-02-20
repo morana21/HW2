@@ -53,16 +53,22 @@ public class MyCanvas extends SurfaceView {
 
         CustomRect rec_2;
         if(REC_2 == null) rec_2 = new CustomRect("Rectangle_2", Color.MAGENTA, 800,50,900, 150);
-        else rec_2 = new CustomRect("Rectangle_2", Color.argb(0xFF, REC_2.r_val,REC_2.g_val,REC_2.b_val), 800,50,900, 150);
+        else rec_2 = REC_2;
         rec_2.drawMe(canvas);
 
-        CustomCircle circ_2 = new CustomCircle("Circle_2", Color.GREEN, 150, 475, 50);
+        CustomCircle circ_2;
+        if(CIRCLE_2 == null)circ_2 = new CustomCircle("Circle_2", Color.GREEN, 150, 475, 50);
+        else circ_2 = CIRCLE_2;
         circ_2.drawMe(canvas);
 
-        CustomRect rec_3 = new CustomRect("Rectangle_3", Color.GRAY , 750,400,900, 550);
+        CustomRect rec_3;
+        if(REC_3 == null) rec_3 = new CustomRect("Rectangle_3", Color.GRAY , 750,400,900, 550);
+        else rec_3 = REC_3;
         rec_3.drawMe(canvas);
 
-        CustomCircle circ_3 = new CustomCircle("Circle_3", Color.CYAN, 500, 500, 75);
+        CustomCircle circ_3;
+        if(CIRCLE_3== null)circ_3 = new CustomCircle("Circle_3", Color.CYAN, 500, 500, 75);
+        else circ_3 = CIRCLE_3;
         circ_3.drawMe(canvas);
 
         REC_1 = rec_1;
