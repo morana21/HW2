@@ -102,6 +102,10 @@ public class Controller implements  SeekBar.OnSeekBarChangeListener, View.OnTouc
 
     }
 
+    /*
+    when a shape is touch, selected from the surfaceview must be updated as well as the shape_name textview
+    redraw to apply the highlight
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -114,36 +118,42 @@ public class Controller implements  SeekBar.OnSeekBarChangeListener, View.OnTouc
         {
             sfc_view.selected = sfc_view.REC_1;
             s_name.setText(sfc_view.REC_1.getName());
+            sfc_view.invalidate();
             return true;
         }
         else if(sfc_view.REC_2.containsPoint(x_coord,y_coord))
         {
             sfc_view.selected = sfc_view.REC_2;
             s_name.setText(sfc_view.REC_2.getName());
+            sfc_view.invalidate();
             return true;
         }
         else if(sfc_view.REC_3.containsPoint(x_coord,y_coord))
         {
             sfc_view.selected = sfc_view.REC_3;
             s_name.setText(sfc_view.REC_3.getName());
+            sfc_view.invalidate();
             return true;
         }
         else if(sfc_view.CIRCLE_1.containsPoint(x_coord,y_coord))
         {
             sfc_view.selected = sfc_view.CIRCLE_1;
             s_name.setText(sfc_view.CIRCLE_1.getName());
+            sfc_view.invalidate();
             return true;
         }
         else if(sfc_view.CIRCLE_2.containsPoint(x_coord,y_coord))
         {
             sfc_view.selected = sfc_view.CIRCLE_2;
             s_name.setText(sfc_view.CIRCLE_2.getName());
+            sfc_view.invalidate();
             return true;
         }
         else if(sfc_view.CIRCLE_3.containsPoint(x_coord,y_coord))
         {
             sfc_view.selected = sfc_view.CIRCLE_3;
             s_name.setText(sfc_view.CIRCLE_3.getName());
+            sfc_view.invalidate();
             return true;
         }
 
